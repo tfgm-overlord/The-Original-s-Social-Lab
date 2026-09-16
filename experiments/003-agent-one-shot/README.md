@@ -14,11 +14,24 @@ This is **agent-agnostic** and **language-agnostic**. The runtime supplies the a
 
 It is also a **single-run validation**, not a causal baseline-versus-treatment study. One run cannot establish statistical efficacy or a general causal effect.
 
+## Execution-boundary record
+
+The first attempted execution was not accepted as a valid agent-level result because the executor also supplied the agent-action/recognition fields, preventing independent attribution of the post-transition behavior. The attempt also exposed single-run isolation and evidence/adjudication issues.
+
+See:
+
+- `FIRST-ATTEMPT-DISPOSITION.md` — disposition of the first attempt; no efficacy claim.
+- `EXECUTION-BOUNDARY.md` — controller/agent/adjudicator separation required before a valid run.
+
+These records do not modify the experiment contract and do not constitute a second run.
+
 ## Artifact
 
 - `agent-one-shot.json` — machine-readable, language-agnostic execution contract.
 - `AGENT-ONE-SHOT.md` — human-readable execution protocol.
 - `RESULT-TEMPLATE.json` — one-run evidence/result record.
+- `EXECUTION-BOUNDARY.md` — required execution separation after the first invalid attempt.
+- `FIRST-ATTEMPT-DISPOSITION.md` — evidence disposition for the first attempt.
 
 ## Required repository primitives
 
