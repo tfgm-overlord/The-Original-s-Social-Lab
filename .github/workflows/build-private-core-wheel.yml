@@ -1,0 +1,24 @@
+name: Build private-core research wheel
+
+on:
+  push:
+    branches:
+      - "mirror/private-warrant-state-integrity"
+
+permissions:
+  contents: write
+
+jobs:
+  build-wheel:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build wheel
+        run: python packages/build_wheel.py
+      - name: Commit wheel
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add dist/*.whl
+          git diff --cached --quiet || git commit -m "Build TFGM private-core research wheel [skip ci]"
+          git push
