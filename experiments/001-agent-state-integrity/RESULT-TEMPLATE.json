@@ -1,0 +1,23 @@
+{
+  "schema": "tfgm.experiment.agent-state-integrity.result.v1",
+  "run_id": "",
+  "agent": "OpenCode",
+  "run_count": 1,
+  "initial_state": {},
+  "superseding_state": {},
+  "transition_evidence": [],
+  "dependent_claims": [],
+  "state_projection_supplied": {},
+  "agent_observation": "",
+  "selected_action": "",
+  "tool_calls": [],
+  "files_changed": [],
+  "tests_or_checks_run": [],
+  "execution_evidence": [],
+  "warrant_result": "",
+  "final_state": {},
+  "behavior_classification": "",
+  "failure_or_limitation": [],
+  "interpretation": "",
+  "unknowns": []
+}

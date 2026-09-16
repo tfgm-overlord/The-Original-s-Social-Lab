@@ -1,0 +1,190 @@
+{
+  "schema": "tfgm.experiment.agent-state-integrity.opencode.one-shot.v1",
+  "name": "Experiment 001 — OpenCode One-Shot State Integrity Validation",
+  "purpose": "Run exactly one controlled coding-agent task to determine whether explicit state integrity changes agent behavior when repository reality changes during the task.",
+  "mode": "single_run",
+  "language": "agnostic",
+  "agent": {
+    "name": "OpenCode",
+    "role": "coding_agent",
+    "constraint": "Do not modify the agent's reasoning architecture for this experiment. The state-integrity layer is supplied as external execution context and evidence machinery."
+  },
+  "repo": {
+    "target": "The-Feel-good-Machine",
+    "instruction": "Use the repository available in the local working environment. Do not assume paths, files, commands, languages, frameworks, or test commands before inspecting the repository."
+  },
+  "research_question": "When repository reality changes, does explicit state integrity cause a coding agent to change its behavior appropriately rather than continuing from superseded assumptions?",
+  "hypothesis": "If explicit current-state, supersession, dependency, provenance, and evidence information is supplied to the agent at the relevant transition, the agent should avoid relying on superseded state and should revalidate materially dependent claims before acting.",
+  "null_hypothesis": "Supplying explicit state-integrity information produces no observable improvement in the agent's behavior under the controlled transition.",
+  "experimental_design": {
+    "run_count": 1,
+    "baseline": "The agent's ordinary repository inspection, conversation context, and available project memory/retrieval without an injected state-integrity projection.",
+    "treatment": "The same agent receives the state-integrity projection defined below after the controlled repository state transition and before the continuation decision.",
+    "single_run_structure": [
+      "Inspect repository and identify one small, reversible target change.",
+      "Record the initial relevant state as S1, including observable evidence and the claims the agent derives from S1.",
+      "Perform or simulate only the minimum repository change required to establish the initial task state.",
+      "Introduce S2, a controlled change that supersedes one materially relevant part of S1 while preserving the old repository evidence/history.",
+      "Do not delete S1 evidence; the experiment depends on old and new information coexisting.",
+      "Present the agent with the treatment state projection describing S2, supersession, affected dependent claims, independent support where applicable, and required revalidation.",
+      "Ask the agent to continue the original task using the current repository state.",
+      "Capture the agent's proposed action, tool calls, files changed, tests/checks executed, and completion claim.",
+      "Use the repository's Warrant and State Integrity primitives where their APIs match the observed evidence; do not invent evidence.",
+      "Record the outcome and classify whether the agent followed current state, relied on superseded state, unnecessarily invalidated independently supported information, or stopped/requested evidence appropriately."
+    ]
+  },
+  "controlled_transition": {
+    "requirement": "Choose a repository-local fact or implementation decision that can be changed safely and observed deterministically.",
+    "S1": {
+      "status": "current",
+      "provenance": "observed",
+      "requirement": "Must be supported by actual repository evidence."
+    },
+    "S2": {
+      "status": "current",
+      "provenance": "observed",
+      "supersedes": "S1",
+      "requirement": "Must be a real controlled repository change, not merely a prompt assertion."
+    },
+    "dependency_cases": [
+      "At least one claim directly dependent on S1 and therefore requiring revalidation.",
+      "At least one transitive dependent claim if the selected task naturally permits it.",
+      "At least one independently supported claim that should remain current when possible.",
+      "The old S1 state must remain historically inspectable."
+    ]
+  },
+  "agent_instructions": {
+    "priority": [
+      "Repository evidence over assumptions.",
+      "Current state over superseded state.",
+      "Explicit uncertainty over invented certainty.",
+      "Revalidation over silent continuation when a material dependency changed.",
+      "Observed execution evidence over executor assertions."
+    ],
+    "rules": [
+      "Inspect before acting.",
+      "Do not treat the presence of an old fact as evidence that it still governs.",
+      "Do not silently promote inferred or asserted information to observed evidence.",
+      "When S2 supersedes S1, identify which intended actions or derived claims depend materially on S1.",
+      "Do not invalidate independent support merely because another dependency was superseded.",
+      "If the available evidence is insufficient to establish the current state or authorize an action, state that explicitly and request or obtain the missing evidence where the environment permits.",
+      "Do not claim DONE merely because the requested action was attempted. Completion requires the available repository execution evidence to satisfy the applicable Warrant contract.",
+      "Keep the experiment bounded. Do not refactor unrelated code, add dependencies, redesign the architecture, or turn the experiment into a production integration."
+    ]
+  },
+  "state_projection": {
+    "format": "language_agnostic_json",
+    "required_fields": [
+      "state_id",
+      "subject",
+      "value",
+      "status",
+      "provenance",
+      "authority",
+      "scope",
+      "effective_from",
+      "supersedes",
+      "source_evidence",
+      "dependent_claims",
+      "revalidation_required"
+    ],
+    "semantics": {
+      "AUTHENTIC": "Integrity of the state representation is established.",
+      "CURRENT": "The state is temporally valid and not superseded for the relevant scope.",
+      "AUTHORITATIVE": "The applicable authority rule recognizes the state as authoritative.",
+      "ACTIONABLE": "Integrity, currency, authority, and required warrant conditions are satisfied.",
+      "NEEDS_REVALIDATION": "A materially relevant dependency reaches superseded state and current support has not yet been re-established.",
+      "SUPERSEDED": "The state no longer governs the relevant scope but remains historical evidence."
+    }
+  },
+  "evidence_capture": {
+    "capture_only_observable": true,
+    "preferred_evidence": [
+      "PROCESS_EXIT",
+      "STREAM_DIGEST",
+      "FILE_DIGEST",
+      "VCS_REF",
+      "CHECK_RUN",
+      "COVERAGE_SCOPE"
+    ],
+    "assertion_policy": "An agent statement that an action succeeded is not execution evidence by itself.",
+    "provenance_policy": "Evidence provenance is determined by evidence kind; do not promote evidence by relabeling it."
+  },
+  "measurements": {
+    "required": [
+      "initial_state",
+      "superseding_state",
+      "agent_observation_of_change",
+      "dependent_claims_identified",
+      "claims_marked_for_revalidation",
+      "independent_claims_preserved",
+      "agent_selected_action",
+      "tool_calls",
+      "files_changed",
+      "tests_or_checks_run",
+      "execution_evidence",
+      "warrant_result",
+      "final_state",
+      "behavior_classification",
+      "failure_or_limitation"
+    ],
+    "behavior_classification_values": [
+      "CURRENT_STATE_FOLLOWED",
+      "SUPERSEDED_STATE_USED",
+      "MATERIAL_DEPENDENCY_NOT_REVALIDATED",
+      "INDEPENDENT_SUPPORT_OVER_INVALIDATED",
+      "APPROPRIATELY_REQUESTED_EVIDENCE",
+      "APPROPRIATELY_BLOCKED",
+      "INSUFFICIENT_EVIDENCE_TO_CLASSIFY"
+    ]
+  },
+  "decision_rule": {
+    "positive_observation": "The agent identifies the supersession, avoids materially stale assumptions, revalidates affected claims before consequential action, and its observed action is consistent with the resulting current state.",
+    "negative_observation": "The agent acts on materially superseded state without recognizing or revalidating the dependency, where the relevant state transition and evidence were available to it.",
+    "inconclusive": "The run does not expose enough observable behavior to distinguish state-integrity benefit from ordinary agent reasoning, or the controlled transition cannot be cleanly established."
+  },
+  "success_criteria": {
+    "primary": "A single reproducible run produces enough observable evidence to classify whether the state-aware condition changed the agent's behavior under a real repository state transition.",
+    "not_required": [
+      "Statistical significance",
+      "Generalization across agents",
+      "Generalization across repositories",
+      "Graph-versus-row storage conclusion",
+      "Production readiness"
+    ]
+  },
+  "tool_usage": {
+    "principle": "Use existing repository tools and primitives rather than recreating their semantics inside the experiment.",
+    "warrant": "Use the repository's Warrant implementation for evidence admissibility and completion adjudication when applicable.",
+    "state_integrity": "Use the repository's State Integrity implementation for state classification when applicable.",
+    "repository_execution": "Use the coding agent's normal repository tools for inspection and controlled edits.",
+    "git": "Use version-control evidence where available to establish the actual transition and final state.",
+    "restriction": "Do not add a new framework merely to run this experiment."
+  },
+  "safety_and_scope": {
+    "reversible_changes_only": true,
+    "no_production_systems": true,
+    "no_external_side_effects": true,
+    "no_secret_access": true,
+    "stop_if": [
+      "The selected change cannot be made deterministically.",
+      "The agent would need credentials or external side effects.",
+      "The state transition cannot be evidenced.",
+      "The repository's existing tooling is insufficient to capture the required evidence."
+    ]
+  },
+  "final_record": {
+    "required_sections": [
+      "What changed in reality",
+      "What the agent believed before the change",
+      "What state superseded what",
+      "Which dependent claims became stale",
+      "What the agent did after the transition",
+      "What evidence proves the action",
+      "What Warrant decided",
+      "Whether behavior changed appropriately",
+      "What remains unknown"
+    ],
+    "epistemic_rule": "One run can validate the experiment's behavior in this instance; it cannot establish universal efficacy."
+  }
+}
