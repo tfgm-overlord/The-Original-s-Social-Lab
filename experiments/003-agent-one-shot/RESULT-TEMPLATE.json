@@ -1,0 +1,83 @@
+{
+  "experiment": "003-agent-one-shot",
+  "schema": "tfgm.experiment.agent-state-integrity.result.v1",
+  "run": {
+    "run_id": "",
+    "started_at": "",
+    "ended_at": "",
+    "single_run": true
+  },
+  "agent": {
+    "type": "",
+    "name": "",
+    "version": "",
+    "model": "",
+    "runtime": ""
+  },
+  "environment": {
+    "target": "",
+    "revision_before": "",
+    "revision_after": ""
+  },
+  "states": {
+    "S1": {
+      "subject": "",
+      "value": "",
+      "status": "CURRENT",
+      "provenance": "OBSERVED",
+      "authority": "",
+      "scope": "",
+      "effective_from": "",
+      "effective_until": "",
+      "source_evidence": []
+    },
+    "S2": {
+      "subject": "",
+      "value": "",
+      "status": "CURRENT",
+      "provenance": "OBSERVED",
+      "authority": "",
+      "scope": "",
+      "effective_from": "",
+      "effective_until": "",
+      "supersedes": "S1",
+      "source_evidence": []
+    }
+  },
+  "dependencies": {
+    "direct": [],
+    "transitive": [],
+    "independent_support_preserved": [],
+    "revalidation_required": []
+  },
+  "state_projection": {
+    "supplied_to_agent": {},
+    "projection_evidence": []
+  },
+  "agent_observation": {
+    "recognized_supersession": null,
+    "selected_action": "",
+    "reasoning_observation": "",
+    "tool_calls": []
+  },
+  "execution_evidence": {
+    "files_changed": [],
+    "checks_run": [],
+    "process_results": [],
+    "vcs_refs": [],
+    "other_observable_evidence": []
+  },
+  "adjudication": {
+    "warrant_result": "NOT_APPLICABLE",
+    "state_result": "",
+    "behavior_classification": "",
+    "evidence_basis": []
+  },
+  "final_state": {
+    "description": "",
+    "evidence": []
+  },
+  "limitations": [],
+  "unresolved_uncertainty": [],
+  "epistemic_scope": "This record describes one observed run only; it does not establish universal efficacy or a general causal effect."
+}
