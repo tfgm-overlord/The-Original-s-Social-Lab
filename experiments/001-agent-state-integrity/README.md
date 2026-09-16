@@ -60,10 +60,24 @@ Record, at minimum:
 - invalidation/revalidation status
 - error type
 
+## Executable starting point
+
+`scenario.json` contains a small controlled state-transition scenario.
+
+`run.py` executes a deterministic mechanism-level comparison between a flat-history baseline and a state-aware condition. It is intentionally **not** an LLM efficacy test. Its purpose is to make the dependency/invalidation behavior executable before introducing a model.
+
+Run:
+
+```bash
+python run.py
+```
+
+The next stage is to place the same scenario behind a minimal longitudinal agent and compare the two conditions using the measurements above.
+
 ## Success criterion
 
 A reproducible comparison showing whether the state-aware condition changes agent behavior under controlled state transitions, including failures and limitations.
 
 ## Current status
 
-**DESIGN ONLY.** No agent-level efficacy claim is established by this document.
+**HARNESS INITIALIZED.** The deterministic mechanism smoke test is present. No agent-level efficacy claim is established.
