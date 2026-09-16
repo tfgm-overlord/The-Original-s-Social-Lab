@@ -3,6 +3,8 @@
   "events": [
     {
       "id": "E1",
+      "kind": "state",
+      "subject": "database",
       "state_version": 1,
       "claim": "The application database is PostgreSQL.",
       "evidence": "Architecture decision record approved for the initial deployment.",
@@ -10,6 +12,8 @@
     },
     {
       "id": "E2",
+      "kind": "derived",
+      "subject": "deployment_configuration",
       "state_version": 1,
       "claim": "Use a PostgreSQL-compatible deployment configuration.",
       "evidence": "Derived from E1.",
@@ -18,6 +22,8 @@
     },
     {
       "id": "E3",
+      "kind": "state",
+      "subject": "migration_window",
       "state_version": 1,
       "claim": "The migration window is Friday at 18:00.",
       "evidence": "Release calendar.",
@@ -25,6 +31,8 @@
     },
     {
       "id": "E4",
+      "kind": "state",
+      "subject": "database",
       "state_version": 2,
       "claim": "The application database is SQLite.",
       "evidence": "Updated architecture decision supersedes E1.",
@@ -33,9 +41,42 @@
     },
     {
       "id": "E5",
+      "kind": "state",
+      "subject": "migration_window",
       "state_version": 2,
       "claim": "The migration window remains Friday at 18:00.",
       "evidence": "Independent release-calendar confirmation after the database change.",
+      "supersedes": ["E3"],
+      "status": "current"
+    },
+    {
+      "id": "E6",
+      "kind": "evidence",
+      "subject": "deployment_configuration",
+      "state_version": 2,
+      "claim": "A portable configuration layer is independently verified for the deployment environment.",
+      "evidence": "Independent integration test executed after the database change.",
+      "status": "current"
+    },
+    {
+      "id": "E7",
+      "kind": "derived",
+      "subject": "deployment_configuration",
+      "state_version": 2,
+      "claim": "The deployment configuration can be generated through the portable configuration layer.",
+      "evidence": "Derived from the original deployment assumption plus E6.",
+      "derived_from": ["E1"],
+      "independent_support": ["E6"],
+      "status": "current"
+    },
+    {
+      "id": "E8",
+      "kind": "derived",
+      "subject": "deployment_driver",
+      "state_version": 2,
+      "claim": "The deployment driver can use the PostgreSQL-specific configuration.",
+      "evidence": "Derived from E2.",
+      "derived_from": ["E2"],
       "status": "current"
     }
   ],
@@ -44,9 +85,12 @@
     "request": "Prepare the database deployment configuration using the current environment."
   },
   "expected": {
-    "database": "SQLite",
-    "migration_window": "Friday at 18:00",
-    "stale_claims": ["E2"],
-    "independently_supported_claims": ["E3", "E5"]
+    "current_by_subject": {
+      "database": "E4",
+      "migration_window": "E5"
+    },
+    "needs_revalidation": ["E2", "E8"],
+    "independently_supported_claims": ["E7"],
+    "preserved_current_claims": ["E4", "E5", "E6", "E7"]
   }
 }
