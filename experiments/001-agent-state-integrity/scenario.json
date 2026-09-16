@@ -1,0 +1,52 @@
+{
+  "name": "database-deployment-change",
+  "events": [
+    {
+      "id": "E1",
+      "state_version": 1,
+      "claim": "The application database is PostgreSQL.",
+      "evidence": "Architecture decision record approved for the initial deployment.",
+      "status": "current"
+    },
+    {
+      "id": "E2",
+      "state_version": 1,
+      "claim": "Use a PostgreSQL-compatible deployment configuration.",
+      "evidence": "Derived from E1.",
+      "derived_from": ["E1"],
+      "status": "current"
+    },
+    {
+      "id": "E3",
+      "state_version": 1,
+      "claim": "The migration window is Friday at 18:00.",
+      "evidence": "Release calendar.",
+      "status": "current"
+    },
+    {
+      "id": "E4",
+      "state_version": 2,
+      "claim": "The application database is SQLite.",
+      "evidence": "Updated architecture decision supersedes E1.",
+      "supersedes": ["E1"],
+      "status": "current"
+    },
+    {
+      "id": "E5",
+      "state_version": 2,
+      "claim": "The migration window remains Friday at 18:00.",
+      "evidence": "Independent release-calendar confirmation after the database change.",
+      "status": "current"
+    }
+  ],
+  "action": {
+    "id": "A1",
+    "request": "Prepare the database deployment configuration using the current environment."
+  },
+  "expected": {
+    "database": "SQLite",
+    "migration_window": "Friday at 18:00",
+    "stale_claims": ["E2"],
+    "independently_supported_claims": ["E3", "E5"]
+  }
+}
