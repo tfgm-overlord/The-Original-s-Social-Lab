@@ -35,8 +35,7 @@
       "id": "E5",
       "state_version": 2,
       "claim": "The migration window remains Friday at 18:00.",
-      "evidence": "Release calendar independently confirms the unchanged schedule.",
-      "derived_from": ["E3"],
+      "evidence": "Independent release-calendar confirmation after the database change.",
       "status": "current"
     }
   ],
